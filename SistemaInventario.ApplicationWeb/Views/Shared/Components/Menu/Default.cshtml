@@ -1,0 +1,42 @@
+﻿@using SistemaInventario.ApplicationWeb.Models.ViewModels;
+@model List<VMMenu>;
+
+@{
+    string menucollapse = "menucollapse";
+    int correlativo = 1;
+}
+
+ @foreach (var menu in Model){
+
+    if (menu.SubMenu.Count == 0)
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="@($"/{menu.Controlador}/{menu.PagAccion}")">
+                <i class="@menu.Icono"></i>
+                <span>@menu.Nombre</span>
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="@($"#{menucollapse}{correlativo}")">
+                 <i class="@menu.Icono"></i>
+                <span>@menu.Nombre</span>
+             </a>
+
+             <div id="@($"{menucollapse}{correlativo}")" class="collapse"  data-parent="#accordionSidebar">
+                 <div class="bg-white py-2 collapse-inner rounded">
+                    @foreach(var submenu in menu.SubMenu)
+                    {
+                        <a class="collapse-item" href="@($"/{submenu.Controlador}/{submenu.PagAccion}")">
+                            @submenu.Nombre
+                        </a>
+                    }
+                 </div>
+             </div>
+
+        </li>
+        correlativo = correlativo + 1;
+    }
+}

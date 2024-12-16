@@ -1,0 +1,22 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+
+namespace SistemaInventario.ApplicationWeb.Utilidades.ViewComponents
+{
+    public class MenuUsuarioViewComponent : ViewComponent
+    {
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            ClaimsPrincipal claimUser = HttpContext.User;
+            string userName = "";
+            if (claimUser.Identity.IsAuthenticated)
+            {
+                userName = claimUser.Claims.Where(c => c.Type == ClaimTypes.Name)
+                                           .Select(c => c.Value)
+                                           .SingleOrDefault();
+            }
+            ViewData["nombreUsuario"] = userName;
+            return View();
+        }
+    }
+}

@@ -1,0 +1,131 @@
+﻿<div class="container mt-5">
+    <h2>Registrar Devolución</h2>
+
+    <!-- Alerta de mensajes -->
+    <div id="alertContainer"></div>
+
+    <form id="formDevolucion">
+        <div class="mb-3">
+            <label for="numeroVenta" class="form-label">Número de Venta</label>
+            <input type="text" id="numeroVenta" class="form-control" placeholder="Ingrese el número de venta">
+        </div>
+        <button type="button" id="buscarVenta" class="btn btn-primary mb-3">Buscar Venta</button>
+        <table id="test">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NumeroVenta</th>
+                    <th>Monto</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <!-- Detalles de la Venta -->
+        <div id="detalleVenta" class="mb-3" style="display: none;">
+            <h4>Detalle de la Venta</h4>
+            <div id="productosContainer"></div>
+        </div>
+
+        <!-- Motivo de la devolución -->
+        <div class="mb-3">
+            <label for="motivo" class="form-label">Motivo de la Devolución</label>
+            <textarea id="motivo" class="form-control" rows="3" placeholder="Describa el motivo de la devolución"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" id="testbtn">Registrar Devolución</button>
+        <button type="submit" class="btn btn-success" id="testbtn2">Registrar Devolución</button>
+    </form>
+</div>
+
+<!--  Modal-->
+<div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6>Detalle Venta</h6>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-sm-4">
+                                    <label for="txtFechaRegistro">Fecha Registro</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtFechaRegistro" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="txtNumVenta">Numero Venta</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNumVenta" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="txtUsuarioRegistro">Usuario Registro</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtUsuarioRegistro" disabled>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-4">
+                                    <label for="txtTipoDocumento">Tipo Documento</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtTipoDocumento" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="txtDocumentoCliente">Documento Cliente</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtDocumentoCliente" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="txtNombreCliente">Nombre Cliente</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNombreCliente" disabled>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-4">
+                                    <label for="txtSubTotal">Sub Total</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtSubTotal" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="txtIGV">IGV</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtIGV" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="txtTotal">Total</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtTotal" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="tbProductos" class="table table-sm table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary btn-sm" target="_blank" id="linkImprimir">Imprimir</a>
+                <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+@section Scripts{
+
+<script src="~/js/vistas/Devolucion.js"></script>
+}
