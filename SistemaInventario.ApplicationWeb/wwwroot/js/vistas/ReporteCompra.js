@@ -16,28 +16,11 @@ $(document).ready(function () {
         "columns": [
             { "data": "fecha" },
             { "data": "numeroCompra" },
-            { "data": "tipoDocumentoCompra" },
-            { "data": "idProveedor" },
-            { "data": "idProveedor" },
             { "data": "subTotalCompra" },
             { "data": "impuestoTotalCompra" },
             { "data": "totalCompra" },
-            { "data": "precioCompra" },
-            { "data": "total" },
         ],
         order: [[0, "desc"]],
-        dom: "Bfrtip",
-        buttons: [
-            {
-                text: 'Exportar Excel',
-                extend: 'excelHtml5',
-                title: '',
-                filename: 'Reporte Ventas'
-            }, 'pageLength'
-        ],
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-        },
     });
 
 

@@ -12,6 +12,7 @@ namespace SistemaInventario.BLL.Interfaces
         Task<string> TotalIngresosUltimaSemana();
         Task<int> TotalProductos();
         Task<int> TotalCategorias();
+        Task<int> TotalMarcas();
         Task<Dictionary<string, int>> VentasUltimaSemana();
         Task<Dictionary<string, int>> ProductosTopUltimaSemana();
     }

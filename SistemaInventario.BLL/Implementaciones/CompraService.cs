@@ -55,10 +55,11 @@ namespace SistemaInventario.BLL.Implementaciones
             {
                 DateTime dateStart = DateTime.ParseExact(fechaInicio, "dd/MM/yyyy", new CultureInfo("es-PE"));
                 DateTime dateEnd = DateTime.ParseExact(fechaFin, "dd/MM/yyyy", new CultureInfo("es-PE"));
-                return query.Where(v =>v.Fecha.Value.Date >= dateStart.Date &&v.Fecha.Value.Date <= dateEnd.Date)
+                return query.Where(v => v.Fecha.Value.Date >= dateStart.Date && v.Fecha.Value.Date <= dateEnd.Date)
                     .Include(tdc => tdc.IdTipoDocumentoCompraNavigation)
                     .Include(u => u.IdUsuarioNavigation)
                     .Include(dc => dc.DetalleCompra)
+                    .Include(p => p.IdProveedorNavigation)
                     .ToList();
             }
             else
@@ -67,6 +68,7 @@ namespace SistemaInventario.BLL.Implementaciones
                     .Include(tdc => tdc.IdTipoDocumentoCompraNavigation)
                     .Include(u => u.IdUsuarioNavigation)
                     .Include(dc => dc.DetalleCompra)
+                    .Include(p => p.IdProveedorNavigation)
                     .ToList();
             }
         }
@@ -77,6 +79,7 @@ namespace SistemaInventario.BLL.Implementaciones
             return query.Include(tdc => tdc.IdTipoDocumentoCompraNavigation)
                 .Include(u => u.IdUsuarioNavigation)
                 .Include(dc => dc.DetalleCompra)
+                .Include(p => p.IdProveedorNavigation)
                 .First();
         }
 

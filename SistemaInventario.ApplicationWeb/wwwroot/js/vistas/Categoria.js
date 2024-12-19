@@ -1,10 +1,23 @@
 ﻿const modelBase = {
     idCategoria: 0,
-    nombre: "a",
+    nombre: "",
     idUsuario: 0,
     estado: 1,
 }
 
+const modelBase1 = {
+    idCategoria: 0,
+    nombre: "",
+    idUsuario: 0,
+    estado: 1,
+}
+
+const modelBase2 = {
+    idCategoria: 0,
+    nombre: "",
+    idUsuario: 0,
+    estado: 1,
+}
 
 let tablaData;
 
@@ -27,26 +40,13 @@ $(document).ready(function () {
                 }
             },
             {
-                "defaultContent": '<button class="btn btn-primary btn-editar btn-sm mr-2"><i class="fas fa-pencil-alt"></i></button>' +
-                    '<button class="btn btn-danger btn-eliminar btn-sm"><i class="fas fa-trash-alt"></i></button>',
+                "defaultContent": '<button class="btn btn-primary btn-editar btn-sm mr-2"><i class="fas fa-edit"></i></button>' +
+                    '<button class="btn btn-info btn-eliminar btn-sm"><i class="fas fa-info px-1"></i></button>',
                 "orderable": false,
                 "searchable": false,
-                "width": "80px"
             }
         ],
         order: [[0, "desc"]],
-        dom: "Bfrtip",
-        buttons: [
-            {
-                text: 'Exportar Excel',
-                extend: 'excelHtml5',
-                title: '',
-                filename: 'Reporte Categorias',
-                exportOptions: {
-                    columns: [1, 2]
-                }
-            }, 'pageLength'
-        ],
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
         },
@@ -56,8 +56,20 @@ $(document).ready(function () {
 function mostrarModal(modelo = modelBase) {
     $("#txtId").val(modelo.idCategoria)
     $("#txtDescripcion").val(modelo.nombre)
-
     $("#modalData").modal("show")
+}
+
+function mostrarModal1(modelo = modelBase1) {
+    $("#txtId1").val(modelo.idCategoria)
+    $("#txtDescripcion1").val(modelo.nombre)
+    $("#cboEstado1").val(modelo.estado)
+    $("#modalData1").modal("show")
+}
+function mostrarModal2(modelo = modelBase2) {
+    $("#txtId2").val(modelo.idCategoria)
+    $("#txtDescripcion2").val(modelo.nombre)
+    $("#cboEstado2").val(modelo.estado)
+    $("#modalData2").modal("show")
 }
 
 $("#btnNuevo").click(function () {
@@ -67,92 +79,114 @@ $("#btnNuevo").click(function () {
 
 $("#btnGuardar").click(function ()
 {
-
-
     if ($("#txtDescripcion").val().trim() == "") {
-        toastr.warning("", "Debe completa el campo : descripcion")
+        toastr.warning("", "Debe completa el campo : Nombre")
         $("#txtDescripcion").focus()
         return;
     }
 
     const nombre = $("#txtDescripcion").val();
-    if (!/^[a-zA-Z\s]+$/.test(nombre)) {
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
         toastr.warning("", 'El nombre solo debe contener letras.');
         $("#txtDescripcion").focus();
         return;
     }
 
-
-
     const modelo = structuredClone(modelBase);
     modelo["idCategoria"] = parseInt($("#txtId").val())
     modelo["nombre"] = $("#txtDescripcion").val()
-    modelo["estado"] = $("#cboEstado").val()
 
     $("#modalData").find("div.modal-content").LoadingOverlay("show");
-
-    if (modelo.idCategoria == 0) {
-
-        fetch("/Categoria/Crear", {
-            method: "POST",
-            headers: { "Content-Type": "application/json; charset=utf-8" },
-            body: JSON.stringify(modelo)
+    fetch("/Categoria/Crear", {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify(modelo)
+    })
+        .then(response => {
+            $("#modalData").find("div.modal-content").LoadingOverlay("hide");
+            return response.ok ? response.json() : Promise.reject(response);
         })
-            .then(response => {
-                $("#modalData").find("div.modal-content").LoadingOverlay("hide");
-                return response.ok ? response.json() : Promise.reject(response);
-            })
-            .then(responseJson => {
+        .then(responseJson => {
 
-                if (responseJson.estado) {
+            if (responseJson.estado) {
 
-                    tablaData.row.add(responseJson.objeto).draw(false)
-                    $("#modalData").modal("hide")
-                    swal("Listo!", "La categoria fue creada", "success")
-                } else {
-                    swal("Los sentimos", responseJson.mensaje, "error")
-                }
-            })
-    } else {
-        fetch("/Categoria/Editar", {
-            method: "PUT",
-            headers: { "Content-Type": "application/json; charset=utf-8" },
-            body: JSON.stringify(modelo)
+                tablaData.row.add(responseJson.objeto).draw(false);
+                $("#modalData").modal("hide");
+                swal("Listo!", "La categoria fue creada", "success");
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            } else {
+                swal("Los sentimos", responseJson.mensaje, "error")
+            }
         })
-            .then(response => {
-                $("#modalData").find("div.modal-content").LoadingOverlay("hide");
-                return response.ok ? response.json() : Promise.reject(response);
-            })
-            .then(responseJson => {
-
-                if (responseJson.estado) {
-
-                    tablaData.row(filaSeleccionada).data(responseJson.objeto).draw(false);
-                    filaSeleccionada = null;
-                    $("#modalData").modal("hide")
-                    swal("Listo!", "La categoria fue modificada", "success")
-                } else {
-                    swal("Los sentimos", responseJson.mensaje, "error")
-                }
-            })
-
-    }
-
-
 })
 
+$("#btnEditar").click(function () {
+
+    if ($("#txtDescripcion1").val().trim() == "") {
+        toastr.warning("", "Debe completa el campo : Nombre")
+        $("#txtDescripcion1").focus()
+        return;
+    }
+
+    const nombre = $("#txtDescripcion1").val();
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
+        toastr.warning("", 'El nombre solo debe contener letras.');
+        $("#txtDescripcion1").focus();
+        return;
+    }
+
+    const modelo = structuredClone(modelBase1);
+    modelo["idMarca"] = parseInt($("#txtId1").val())
+    modelo["nombre"] = $("#txtDescripcion1").val()
+    modelo["estado"] = $("#cboEstado1").val()
+
+    $("#modalData1").find("div.modal-content").LoadingOverlay("show");
+    fetch("/Categoria/Editar", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify(modelo)
+    })
+        .then(response => {
+            $("#modalData1").find("div.modal-content").LoadingOverlay("hide");
+            return response.ok ? response.json() : Promise.reject(response);
+        })
+        .then(responseJson => {
+
+            if (responseJson.estado) {
+
+                tablaData.row.add(responseJson.objeto).draw(false);
+                $("#modalData1").modal("hide");
+                swal("Listo!", "La categoria fue editada", "success");
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            } else {
+                swal("Lo sentimos", responseJson.mensaje, "error")
+            }
+        })
+})
 
 let filaSeleccionada;
 $("#tbdata tbody").on("click", ".btn-editar", function () {
-
     if ($(this).closest("tr").hasClass("child")) {
         filaSeleccionada = $(this).closest("tr").prev();
     } else {
         filaSeleccionada = $(this).closest("tr");
     }
-
     const data = tablaData.row(filaSeleccionada).data();
+    mostrarModal1(data);
+});
 
-    mostrarModal(data);
+let filaSeleccionada1;
+$("#tbdata tbody").on("click", ".btn-eliminar", function () {
 
+    if ($(this).closest("tr").hasClass("child")) {
+        filaSeleccionada1 = $(this).closest("tr").prev();
+    } else {
+        filaSeleccionada1 = $(this).closest("tr");
+    }
+    const data = tablaData.row(filaSeleccionada1).data();
+    mostrarModal2(data);
 })

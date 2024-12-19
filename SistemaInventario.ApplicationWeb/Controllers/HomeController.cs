@@ -16,14 +16,11 @@ namespace SistemaInventario.ApplicationWeb.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IUsuarioService _usuarioServicio;
         private readonly IMapper _mapper;
-        public HomeController(ILogger<HomeController> logger,
-            IUsuarioService usuarioServicio,
+        public HomeController(IUsuarioService usuarioServicio,
             IMapper mapper)
         {
-            _logger = logger;
             _usuarioServicio = usuarioServicio;
             _mapper = mapper;
         }
@@ -99,7 +96,7 @@ namespace SistemaInventario.ApplicationWeb.Controllers
                 string idUsuario = claimUser.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
                                                    .Select(c => c.Value)
                                                    .SingleOrDefault();
-                bool result = await _usuarioServicio.CambiarClave(int.Parse(idUsuario), modelo.ClaveNueva, modelo.ClaveActual);
+                bool result = await _usuarioServicio.CambiarClave(int.Parse(idUsuario), modelo.ClaveActual, modelo.ClaveNueva);
                 response.Estado = result;
             }
             catch (Exception ex)

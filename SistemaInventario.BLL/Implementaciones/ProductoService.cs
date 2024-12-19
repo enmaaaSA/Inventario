@@ -40,17 +40,17 @@ namespace SistemaInventario.BLL.Implementaciones
         {
             Producto productExists = await _repositorio.Obtener(p => p.CodigoBarra == entidad.CodigoBarra && p.Estado == true);
             if (productExists != null)
-                throw new TaskCanceledException("El codigo de barras ya existe. CREAR");
+                throw new TaskCanceledException("El codigo de barras ya existe.");
 
             try
             {
                 if (entidad.PrecioCompra >= entidad.PrecioVenta)
-                    throw new TaskCanceledException("El Precio de Compra no puede ser mayor al Precio de Venta. CREAR");
+                    throw new TaskCanceledException("El precio de costo no puede ser mayor al precio de venta.");
 
                 Producto productCreated = await _repositorio.Crear(entidad);
 
                 if (productCreated.IdProducto == 0)
-                    throw new TaskCanceledException("No se pudo crear el producto. CREAR");
+                    throw new TaskCanceledException("No se pudo crear el producto.");
 
                 IQueryable<Producto> query = await _repositorio.Consultar(p => p.IdProducto == productCreated.IdProducto);
                 productCreated = query.Include(c => c.IdCategoriaNavigation)
@@ -78,7 +78,7 @@ namespace SistemaInventario.BLL.Implementaciones
                                                                      p.Estado == true);
 
             if (productExists != null)
-                throw new InvalidOperationException("El codigo de barra no existe. EDICION");
+                throw new InvalidOperationException("El codigo de barra no existe.");
 
             try
             {
@@ -86,7 +86,7 @@ namespace SistemaInventario.BLL.Implementaciones
                 Producto productOriginal = queryProduct.First();
 
                 if (entidad.PrecioCompra >= entidad.PrecioVenta)
-                    throw new TaskCanceledException("El precio de compra no puede ser mayor que el precio de venta. EDICION");
+                    throw new TaskCanceledException("El precio de costo no puede ser mayor al precio de venta.");
 
                 Producto productNew = new Producto
                 {
@@ -104,7 +104,7 @@ namespace SistemaInventario.BLL.Implementaciones
 
                 Producto productCreate = await _repositorio.Crear(productNew);
                 if (productCreate == null)
-                    throw new TaskCanceledException("No se pudo actualizar el producto. EDICION");
+                    throw new TaskCanceledException("No se pudo actualizar el producto.");
 
                 productOriginal.Estado = false;
                 bool statusFalse = await _repositorio.Editar(productOriginal);
@@ -119,7 +119,7 @@ namespace SistemaInventario.BLL.Implementaciones
 
                 IQueryable<Producto> query = await _repositorio.Consultar(p => p.IdProducto == productCreate.IdProducto);
                 Producto productRazon = query.First();
-                productRazon.Razon = $"Producto creado por {productCreate.IdUsuarioNavigation.Nombre}{productCreate.IdUsuarioNavigation.Apellido}.";
+                productRazon.Razon = $"Producto creado por {productCreated.IdUsuarioNavigation.Nombre} {productCreated.IdUsuarioNavigation.Apellido}.";
                 bool test = await _repositorio.Editar(productRazon);
 
                 #region HistorialCompra

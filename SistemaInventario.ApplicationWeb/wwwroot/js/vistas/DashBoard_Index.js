@@ -22,6 +22,7 @@ $(document).ready(function () {
                 $("#totalIngresos").text(d.totalIngresos)
                 $("#totalProductos").text(d.totalProductos)
                 $("#totalCategorias").text(d.totalCategorias)
+                $("#totalMarcas").text(d.totalMarcas)
 
                 //obtener textos y valores para nuestro grafico de barras
                 let barchart_labels;

@@ -1,4 +1,8 @@
-﻿<div class="card shadow mb-4">
+﻿@{
+    ViewData["Title"] = "Negocio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card shadow mb-4">
     <div class="card-header py-3 bg-second-primary">
         <h6 class="m-0 font-weight-bold text-white">Datos del Negocio</h6>
     </div>
@@ -8,46 +12,48 @@
             <div class="col-sm-12">
                 <form>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="form-row">
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-5">
                                     <label for="txtDocumento">Tipo Documento</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtDocumento" name="Documento">
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="col-1"></div>
+                                <div class="form-group col-sm-5">
                                     <label for="txtNumeroDocumento">Numero Documento</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtNumeroDocumento" name="Numero Documento">
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-5">
                                     <label for="txtRazonSocial">Razon Social</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtRazonSocial" name="Razon Social">
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="col-1"></div>
+                                <div class="form-group col-sm-5">
                                     <label for="txtCorreo">Correo</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtCorreo" name="Correo">
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-5">
                                     <label for="txtDireccion">Direccion</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtDireccion" name="Direccion">
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="col-1"></div>
+                                <div class="form-group col-sm-5">
                                     <label for="txtImpuesto">% Impuesto</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtImpuesto" name="Impuesto">
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-5">
                                     <label for="txtSimboloMoneda">Simbolo Moneda</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtSimboloMoneda" name="Simbolo Moneda">
                                 </div>
-
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-12">
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12">

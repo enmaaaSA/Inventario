@@ -30,13 +30,13 @@ namespace SistemaInventario.BLL.Implementaciones
         {
             Marca brandExists = await _repositorio.Obtener(b => b.Nombre == entidad.Nombre && b.Estado == true);
             if (brandExists != null)
-                throw new TaskCanceledException("La marca ya existe CREATE");
+                throw new TaskCanceledException("La marca ya existe.");
 
             try
             {
                 Marca brandCreated = await _repositorio.Crear(entidad);
                 if (brandCreated.IdMarca == 0)
-                    throw new TaskCanceledException("No se puede crear la categoria CREATE");
+                    throw new TaskCanceledException("No se puede crear la marca.");
                 IQueryable<Marca> query = await _repositorio.Consultar(b => b.IdMarca == brandCreated.IdMarca);
                 brandCreated = query.Include(u => u.IdUsuarioNavigation).First();
                 return brandCreated;
@@ -49,9 +49,11 @@ namespace SistemaInventario.BLL.Implementaciones
 
         public async Task<Marca> Editar(Marca entidad)
         {
-            Marca brandExists = await _repositorio.Obtener(c => c.Nombre == entidad.Nombre && c.Estado == true);
+            Marca brandExists = await _repositorio.Obtener(c => c.IdMarca != entidad.IdMarca &&
+                                                                c.Nombre == entidad.Nombre &&
+                                                                c.Estado == true);
             if (brandExists != null)
-                throw new TaskCanceledException("La marca ya existe EDIT");
+                throw new TaskCanceledException("La marca ya existe.");
             try
             {
                 IQueryable<Marca> queryBrand = await _repositorio.Consultar(c => c.IdMarca == entidad.IdMarca);
@@ -65,7 +67,7 @@ namespace SistemaInventario.BLL.Implementaciones
 
                 Marca brandCreate = await _repositorio.Crear(brandNew);
                 if (brandCreate == null)
-                    throw new TaskCanceledException("No se pudo actualizar la categoria. EDICION");
+                    throw new TaskCanceledException("No se pudo actualizar la marca.");
 
                 brandOriginal.Estado = false;
                 bool statusFalse = await _repositorio.Editar(brandOriginal);

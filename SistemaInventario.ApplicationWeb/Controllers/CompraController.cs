@@ -16,16 +16,13 @@ namespace SistemaInventario.ApplicationWeb.Controllers
         private readonly ITipoDocumentoCompraService _tipoDocumentoCompraServicio;
         private readonly ICompraService _compraServicio;
         private readonly IMapper _mapper;
-        private readonly IConverter _converter;
         public CompraController(ITipoDocumentoCompraService tipoDocumentoCompraServicio,
             ICompraService compraServicio,
-            IMapper mapper,
-            IConverter converter)
+            IMapper mapper)
         {
             _tipoDocumentoCompraServicio = tipoDocumentoCompraServicio;
             _compraServicio = compraServicio;
             _mapper = mapper;
-            _converter = converter;
         }
 
 

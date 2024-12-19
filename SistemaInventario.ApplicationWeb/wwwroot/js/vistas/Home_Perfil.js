@@ -15,11 +15,12 @@ $(document).ready(function () {
             if (responseJson.estado) {
                 const d = responseJson.objeto
 
-                $("#imgFoto").attr("src", d.urlFoto)
                 $("#txtNombre").val(d.nombre)
+                $("#txtApellido").val(d.apellido)
                 $("#txtCorreo").val(d.correo)
-                $("#txTelefono").val(d.telefono)
-                $("#txtRol").val(d.nombreRol)
+                $("#txtRol").val(d.rol)
+                $("#txtDocumento").val(d.documento)
+                $("#txtNumberDocumento").val(d.numeroDocumento)
 
             } else {
                 swal("Los sentimos", responseJson.mensaje, "error")
@@ -29,69 +30,6 @@ $(document).ready(function () {
 
 
 })
-
-
-$("#btnGuardarCambios").click(function(){
-
-    if ($("#txtCorreo").val().trim() == "") {
-        toastr.warning("", "Debe completar el campo correo")
-        $("#txtCorreo").focus()
-        return;
-    }
-    if ($("#txTelefono").val().trim() == "") {
-        toastr.warning("", "Debe completar el campo telefono")
-        $("#txTelefono").focus()
-        return;
-    }
-
-
-    swal({
-        title: "¿Desea guardar los cambios?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-primary",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        closeOnConfirm: false,
-        closeOnCancel: true
-    },
-        function (respuesta) {
-
-            if (respuesta) {
-
-                $(".showSweetAlert").LoadingOverlay("show");
-
-                let modelo = {
-                    correo: $("#txtCorreo").val().trim(),
-                    telefono: $("#txTelefono").val().trim()
-                }
-
-                fetch("/Home/GuardarPerfil", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json; charset=utf-8" },
-                    body: JSON.stringify(modelo)
-                })
-                    .then(response => {
-                        $(".showSweetAlert").LoadingOverlay("hide");
-                        return response.ok ? response.json() : Promise.reject(response);
-                    })
-                    .then(responseJson => {
-
-                        if (responseJson.estado) {
-
-                            swal("Listo!", "Los cambios fueron guardados", "success")
-                        } else {
-                            swal("Los sentimos", responseJson.mensaje, "error")
-                        }
-                    })
-
-
-            }
-        }
-    )
-
-})
-
 
 $("#btnCambiarClave").click(function () {
 

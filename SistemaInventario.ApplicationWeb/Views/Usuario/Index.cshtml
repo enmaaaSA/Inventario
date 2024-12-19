@@ -28,13 +28,13 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th class="col-2">Nombre</th>
-                            <th class="col-2">Apellido</th>
+                            <th class="col-1">Nombre</th>
+                            <th class="col-1">Apellido</th>
                             <th>Documento</th>
-                            <th>NumeroDocumento</th>
+                            <th class="col-1">Documento</th>
                             <th class="col-2">Correo</th>
                             <th class="col-2">Rol</th>
-                            <th class="col-1">Estados</th>
+                            <th class="col-1">Estado</th>
                             <th class="col-1">Accion</th>
                         </tr>
                     </thead>
@@ -48,10 +48,10 @@
 
 
 <div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6>Detalle Usuario</h6>
+                <h6>Registrar Usuario</h6>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -60,9 +60,8 @@
                 <form>
                     <input type="hidden" value="0" id="txtId">
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-sm-12">
                             <div class="form-row">
-
                                 <div class="form-group col-sm-6">
                                     <label for="txtNombre" class="form-label">Nombre</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtNombre" name="Nombre" required>
@@ -83,37 +82,25 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="txtNumeroDocumento">NumeroDocumento</label>
-                                    <input type="number" class="form-control form-control-sm input-validar" id="txtNumeroDocumento" name="NumeroDocumento" required
+                                    <input type="text" class="form-control form-control-sm input-validar" id="txtNumeroDocumento" name="NumeroDocumento" required
                                            placeholder="N° Documento" data-val="true" data-val-length="El N° Documento: no puede tener más de 20 caracteres y menos de 8 caracteres"
                                            data-val-length-max="20" data-val-length-min="8" data-val-required="Debe ingresar el n° de documento." id="NumeroDocumento" maxlength="20" value="">
 
                                 </div>
-
-                                @*<input class="form-control txtcss is-invalid" placeholder="N° Documento" type="text" data-val="true" data-val-length="El N° Documento: no puede tener más de 20 caracteres y menos de 8 caracteres" data-val-length-max="20" data-val-length-min="8" data-val-required="Debe ingresar el n° de documento." id="NumeroDocumento" maxlength="20" name="NumeroDocumento" value="" aria-describedby="NumeroDocumento-error" aria-invalid="true">
-                                <input class="form-control txtcss" placeholder="N° Documento" type="text" data-val="true" data-val-length="El N° Documento: no puede tener más de 20 caracteres y menos de 8 caracteres" data-val-length-max="20" data-val-length-min="8" data-val-required="Debe ingresar el n° de documento." id="NumeroDocumento" maxlength="20" name="NumeroDocumento" value="">
-                                *@
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-12">
                                     <label for="txtCorreo">Correo</label>
                                     <input type="email" class="form-control form-control-sm input-validar" id="txtCorreo" name="Correo" required>
                                 </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="form-group col-sm-6">
                                     <label for="cboRol">Rol</label>
                                     <select class="form-control form-control-sm" id="cboRol" required>
                                     </select>
                                 </div>
                             </div>
-                            <!--<div class="form-row">
-                                <div class="form-group col-sm-6">
-                                    <label for="cboEstado">Estado</label>
-                                    <select class="form-control form-control-sm" id="cboEstado">
-                                        <option value="1">Activo</option>
-                                        <option value="0">No Activo</option>
-                                    </select>
-                                </div>
-                            </div>-->
-                            <
                         </div>
 
                     </div>
@@ -126,6 +113,156 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalData1" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6>Editar Usuario</h6>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" value="0" id="txtId1">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-row">
+
+                                <div class="form-group col-sm-6">
+                                    <label for="txtNombre1" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control form-control-sm input-validar" id="txtNombre1" name="Nombre" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="txtApellido1" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control form-control-sm input-validar" id="txtApellido1" name="Apellido" disabled>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="cboDocumento1">Documento</label>
+                                    <select class="form-control form-control-sm" id="cboDocumento1" disabled>
+                                        <option>DNI</option>
+                                        <option>Carnet</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="txtNumeroDocumento1">NumeroDocumento</label>
+                                    <input type="number" class="form-control form-control-sm input-validar" id="txtNumeroDocumento1" name="NumeroDocumento" disabled
+                                           placeholder="N° Documento" data-val="true" data-val-length="El N° Documento: no puede tener más de 20 caracteres y menos de 8 caracteres"
+                                           data-val-length-max="20" data-val-length-min="8" data-val-required="Debe ingresar el n° de documento." id="NumeroDocumento" maxlength="20" value="">
+
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="txtCorreo1">Correo</label>
+                                    <input type="email" class="form-control form-control-sm input-validar" id="txtCorreo1" name="Correo" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="cboRol1">Rol</label>
+                                    <select class="form-control form-control-sm" id="cboRol1" required>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="cboEstado1">Estado</label>
+                                    <select class="form-control form-control-sm" id="cboEstado1">
+                                        <option value="1">Activo</option>
+                                        <option value="0">Inactivo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" type="button" id="btnEditar">Editar</button>
+                <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalData2" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6>Información Usuario</h6>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" value="0" id="txtId2">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-row">
+
+                                <div class="form-group col-sm-6">
+                                    <label for="txtNombre2" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control form-control-sm input-validar" id="txtNombre2" name="Nombre" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="txtApellido2" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control form-control-sm input-validar" id="txtApellido2" name="Apellido" disabled>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="cboDocumento2">Documento</label>
+                                    <select class="form-control form-control-sm" id="cboDocumento2" disabled>
+                                        <option>DNI</option>
+                                        <option>Carnet</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="txtNumeroDocumento2">NumeroDocumento</label>
+                                    <input type="number" class="form-control form-control-sm input-validar" id="txtNumeroDocumento2" name="NumeroDocumento" disabled
+                                           placeholder="N° Documento" data-val="true" data-val-length="El N° Documento: no puede tener más de 20 caracteres y menos de 8 caracteres"
+                                           data-val-length-max="20" data-val-length-min="8" data-val-required="Debe ingresar el n° de documento." id="NumeroDocumento" maxlength="20" value="">
+
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="txtCorreo2">Correo</label>
+                                    <input type="email" class="form-control form-control-sm input-validar" id="txtCorreo2" name="Correo" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="cboRol2">Rol</label>
+                                    <select class="form-control form-control-sm" id="cboRol2" disabled>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="cboEstado2">Estado</label>
+                                    <select class="form-control form-control-sm" id="cboEstado2" disabled>
+                                        <option value="1">Activo</option>
+                                        <option value="0">Inactivo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>

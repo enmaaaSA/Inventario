@@ -18,5 +18,6 @@ namespace SistemaInventario.BLL.Interfaces
         Task<bool> GuardarPefil(Usuario entidad);
         Task<bool> CambiarClave(int idUsuario, string claveActual, string claveNueva);
         Task<bool> RestablecerClave(string correo, string urlPlantillaCorreo);
+        Task<Usuario> ObtenerUsuarioActivoPorId(int idUsuario);
     }
 }

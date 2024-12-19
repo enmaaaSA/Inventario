@@ -30,15 +30,30 @@ $(document).ready(function () {
                         $("#cboProveedorNumber").append(
                             $("<option>").val(item.idProveedor).text(item.numeroDocumento)
                         );
+                        $("#cboProveedorTip").append(
+                            $("<option>").val(item.idProveedor).text(item.tipoDocumento)
+                        );
                     });
+                    function synchronizeSelects(selectedId) {
+                        $("#cboProveedor").val(selectedId);
+                        $("#cboProveedorNumber").val(selectedId);
+                        $("#cboProveedorTip").val(selectedId);
+                    }
+
+                    // Sincronización al cambiar cualquiera de los selects
                     $("#cboProveedor").on("change", function () {
                         const selectedId = $(this).val();
-                        $("#cboProveedorNumber").val(selectedId);
+                        synchronizeSelects(selectedId);
                     });
 
                     $("#cboProveedorNumber").on("change", function () {
                         const selectedId = $(this).val();
-                        $("#cboProveedor").val(selectedId);
+                        synchronizeSelects(selectedId);
+                    });
+
+                    $("#cboProveedorTip").on("change", function () {
+                        const selectedId = $(this).val();
+                        synchronizeSelects(selectedId);
                     });
                 }
             }
@@ -109,14 +124,17 @@ function formatoResultados(data) {
     var contenedor = $(
         `<table width="100%">
             <tr>
-                <td class="col-4">
-                    <p style="margin:2px">${data.text}</p>
+                <td class="col-3">
+                    <p style="margin:2px">${data.codigoBarra}</p>
                 </td>
-                <td class="col-4">
+                <td class="col-3">
+                    <p style="font-weight: bolder;margin:2px">${data.text}</p>
+                </td>
+                <td class="col-3">
                     <p style="font-weight: bolder;margin:2px">${data.marca}</p>
                 </td>
-                <td class="col-4">
-                    <p style="font-weight: bolder;margin:2px">${data.marca}</p>
+                <td class="col-3">
+                    <p style="font-weight: bolder;margin:2px">${data.categoria}</p>
                 </td>
             </tr>
          </table>`
@@ -268,9 +286,12 @@ $("#btnTerminarVenta").click(function () {
                 ProductosParaVenta = [];
                 mostrarProducto_Precios();
 
-                $("#cboTipoDocumentoCompra").val($("#cboTipoDocumentoCompra option:first").val())
+                $("#cboTipoDocumentoCompra").val($("#cboTipoDocumentoCompra option:first").val());
 
-                swal("Registrado!", `Numero Compra: ${responseJson.objeto.numeroCompra}`, "success")
+                swal("Registrado!", `Numero Compra: ${responseJson.objeto.numeroCompra}`, "success");
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
             } else {
                 swal("Lo sentimos!", "No se pudo registrar la compra", "error")
             }
@@ -279,6 +300,6 @@ $("#btnTerminarVenta").click(function () {
 })
 
 $("#Test").click(function () {
-    const testing = $("#cboProveedor").val()
+    const testing = $("#txtFechaCompra").val()
     console.log(testing)
 })

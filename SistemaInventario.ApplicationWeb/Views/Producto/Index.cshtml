@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Productos";
+    ViewData["Title"] = "Producto";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -32,8 +32,8 @@
                         <tr>
                             <th>Id</th>
                             <th>Codigo Barra</th>
+                            <th>Nombre</th>
                             <th>Marca</th>
-                            <th>Descripcion</th>
                             <th>Categoria</th>
                             <th>Stock</th>
                             <th>Costo</th>
@@ -52,10 +52,10 @@
 
 <!--  Modal-->
 <div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6>Detalle Producto</h6>
+                <h6>Registrar Producto</h6>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -64,12 +64,13 @@
                 <form>
                     <input type="hidden" value="0" id="txtId">
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-sm-12">
                             <div class="form-row">
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-5">
                                     <label for="txtCodigoBarra">Codigo Barra</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtCodigoBarra" name="Codigo Barra">
                                 </div>
+                                <div class="col-1"></div>
                                 <div class="form-group col-sm-6">
                                     <label for="txtNombre">Nombre</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtNombre" name="Nombre">
@@ -78,8 +79,7 @@
                             <div class="form-row">
                                 <div class="form-group col-sm-12">
                                     <label for="txtDescripcion">Descripcion</label>
-                                    <input type="text" class="form-control form-control-sm input-validar" id="txtDescripcion" name="Descripcion">
-                                </div>
+                                    <input class="form-control form-control-sm input-validar" id="txtDescripcion" name="Descripcion">                                </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
@@ -95,11 +95,11 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
-                                    <label for="txtPrecioCompra">PrecioCompra</label>
+                                    <label for="txtPrecioCompra">Costo</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtPrecioCompra" name="Precio Compra">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label for="txtPrecio">PrecioVenta</label>
+                                    <label for="txtPrecio">Venta</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtPrecio" name="Precio Venta">
                                 </div>
                             </div>
@@ -107,13 +107,6 @@
                                 <div class="form-group col-sm-6">
                                     <label for="txtStock">Stock</label>
                                     <input type="text" class="form-control form-control-sm input-validar" id="txtStock" name="Stock" disabled>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="cboEstado">Estado</label>
-                                    <select class="form-control form-control-sm" id="cboEstado">
-                                        <option value="1">Activo</option>
-                                        <option value="0">No Activo</option>
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -123,6 +116,163 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary btn-sm" type="button" id="btnGuardar">Guardar</button>
+                <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalData1" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6>Editar Producto</h6>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" value="0" id="txtId1">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-sm-5">
+                                    <label for="txtCodigoBarra1">Codigo Barra</label>
+                                    <input type="text" class="form-control form-control-sm input-validar1" id="txtCodigoBarra1" name="Codigo Barra" disabled>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="form-group col-sm-6">
+                                    <label for="txtNombre1">Nombre</label>
+                                    <input type="text" class="form-control form-control-sm input-validar1" id="txtNombre1" name="Nombre">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label for="txtDescripcion1">Descripcion</label>
+                                    <input class="form-control form-control-sm input-validar1" id="txtDescripcion1" name="Descripcion">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="cboMarca1">Marca</label>
+                                    <select class="form-control form-control-sm" id="cboMarca1">
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="cboCategoria1">Categoria</label>
+                                    <select class="form-control form-control-sm" id="cboCategoria1">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="txtPrecioCompra1">Costo</label>
+                                    <input type="text" class="form-control form-control-sm input-validar1" id="txtPrecioCompra1" name="Precio Compra">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="txtPrecio1">Venta</label>
+                                    <input type="text" class="form-control form-control-sm input-validar1" id="txtPrecio1" name="Precio Venta">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="txtStock1">Stock</label>
+                                    <input type="text" class="form-control form-control-sm input-validar1" id="txtStock1" name="Stock" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="cboEstado1">Estado</label>
+                                    <select class="form-control form-control-sm" id="cboEstado1">
+                                        <option value="1">Activo</option>
+                                        <option value="0">Inactivo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" type="button" id="btnEditar">Editar</button>
+                <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalData2" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6>Información Producto</h6>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" value="0" id="txtId2">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-row">
+                                <div class="form-group col-sm-5">
+                                    <label for="txtCodigoBarra2">Codigo Barra</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtCodigoBarra2" name="Codigo Barra" disabled>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="form-group col-sm-6">
+                                    <label for="txtNombre2">Nombre</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNombre2" name="Nombre" disabled>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label for="txtDescripcion2">Descripcion</label>
+                                    <textarea class="form-control form-control-sm" id="txtDescripcion2" name="Descripcion" disabled></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="cboMarca2">Marca</label>
+                                    <select class="form-control form-control-sm" id="cboMarca2" disabled>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="cboCategoria2">Categoria</label>
+                                    <select class="form-control form-control-sm" id="cboCategoria2" disabled>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="txtPrecioCompra2">Costo</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtPrecioCompra2" name="Precio Compra" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="txtPrecio2">Venta</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtPrecio2" name="Precio Venta" disabled>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label for="txtStock2">Stock</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtStock2" name="Stock" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="cboEstado2">Estado</label>
+                                    <select class="form-control form-control-sm" id="cboEstado2" disabled>
+                                        <option value="1">Activo</option>
+                                        <option value="0">Inactivo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
                 <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancel</button>
             </div>
         </div>

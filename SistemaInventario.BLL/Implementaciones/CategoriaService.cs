@@ -31,13 +31,13 @@ namespace SistemaInventario.BLL.Implementaciones
         {
             Categoria categoryExists = await _repositorio.Obtener(c => c.Nombre == entidad.Nombre && c.Estado == true);
             if (categoryExists != null)
-                throw new TaskCanceledException("La categoria ya existe CREATE");
+                throw new TaskCanceledException("La categoria ya existe.");
 
             try
             {
                 Categoria categoryCreated = await _repositorio.Crear(entidad);
                 if (categoryCreated.IdCategoria == 0)
-                    throw new TaskCanceledException("No se puede crear la categoria CREATE");
+                    throw new TaskCanceledException("No se puede crear la categoria.");
                 IQueryable<Categoria> query = await _repositorio.Consultar(c => c.IdCategoria == categoryCreated.IdCategoria);
                 categoryCreated = query.Include(u => u.IdUsuarioNavigation).First();
                 return categoryCreated;
@@ -50,9 +50,11 @@ namespace SistemaInventario.BLL.Implementaciones
 
         public async Task<Categoria> Editar(Categoria entidad)
         {
-            Categoria categoryExists = await _repositorio.Obtener(c => c.Nombre == entidad.Nombre && c.Estado == true);
+            Categoria categoryExists = await _repositorio.Obtener(c => c.IdCategoria != entidad.IdCategoria &&
+                                                                       c.Nombre == entidad.Nombre &&
+                                                                       c.Estado == true);
             if (categoryExists != null)
-                throw new TaskCanceledException("La categoria ya existe EDIT");
+                throw new TaskCanceledException("La categoria ya existe.");
 
             try
             {
@@ -68,7 +70,7 @@ namespace SistemaInventario.BLL.Implementaciones
 
                 Categoria categoryCreate = await _repositorio.Crear(categoryNew);
                 if (categoryCreate == null)
-                    throw new TaskCanceledException("No se pudo actualizar la categoria. EDICION");
+                    throw new TaskCanceledException("No se pudo actualizar la categoria.");
 
                 categoryOriginal.Estado = false;
                 bool statusFalse = await _repositorio.Editar(categoryOriginal);

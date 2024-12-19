@@ -20,15 +20,12 @@ namespace SistemaInventario.ApplicationWeb.Controllers
         private readonly ITipoDocumentoVentaService _tipoDocumentoVentaServicio;
         private readonly IVentaService _ventaServicio;
         private readonly IMapper _mapper;
-        private readonly IConverter _converter;
         public VentaController(ITipoDocumentoVentaService tipoDocumentoVentaServicio,
             IVentaService ventaServicio,
-            IConverter converter,
             IMapper mapper)
         {
             _tipoDocumentoVentaServicio = tipoDocumentoVentaServicio;
             _ventaServicio = ventaServicio;
-            _converter = converter;
             _mapper = mapper;
         }
 
@@ -90,46 +87,6 @@ namespace SistemaInventario.ApplicationWeb.Controllers
         {
             List<VMVenta> vmHistorialVenta = _mapper.Map<List<VMVenta>>(await _ventaServicio.Historial(numeroVenta, fechaInicio, fechaFin));
             return StatusCode(StatusCodes.Status200OK, vmHistorialVenta);
-        }
-
-        public IActionResult MostrarPDFCompra(string numeroCompra)
-        {
-            string urlPlantillaVista = $"{this.Request.Scheme}://{this.Request.Host}/Plantilla/PDFCompra?numeroCompra={numeroCompra}";
-            var pdf = new HtmlToPdfDocument()
-            {
-                GlobalSettings = new GlobalSettings()
-                {
-                    PaperSize = PaperKind.A4,
-                    Orientation = Orientation.Portrait,
-                },
-                Objects = {
-                    new ObjectSettings(){
-                        Page = urlPlantillaVista
-                    }
-                }
-            };
-            var archivoPDF = _converter.Convert(pdf);
-            return File(archivoPDF, "application/pdf");
-        }
-
-        public IActionResult MostrarPDFVenta(string numeroVenta)
-        {
-            string urlPlantillaVista = $"{this.Request.Scheme}://{this.Request.Host}/Plantilla/PDFVenta?numeroVenta={numeroVenta}";
-            var pdf = new HtmlToPdfDocument()
-            {
-                GlobalSettings = new GlobalSettings()
-                {
-                    PaperSize = PaperKind.A4,
-                    Orientation = Orientation.Portrait,
-                },
-                Objects = {
-                    new ObjectSettings(){
-                        Page = urlPlantillaVista
-                    }
-                }
-            };
-            var archivoPDF = _converter.Convert(pdf);
-            return File(archivoPDF, "application/pdf");
         }
 
         [HttpGet]

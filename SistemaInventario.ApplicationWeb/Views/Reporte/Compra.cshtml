@@ -1,4 +1,7 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Reporte Compras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @section Estilos {
 
     <!-- ============================================================
@@ -30,7 +33,7 @@
             </div>
         </div>
 
-        <button id="btnDescargarExcel">Excel</button>
+        <button class="btn btn-success" id="btnDescargarExcel">Descargar Reporte</button>
 
         <hr />
         <div class="row">
@@ -39,14 +42,9 @@
                     <thead>
                         <tr>
                             <th scope="col">Fecha Registro</th>
-                            <th scope="col">Numero Venta</th>
-                            <th scope="col">Tipo Documento</th>
-                            <th scope="col">Documento Cliente</th>
-                            <th scope="col">Nombre Cliente</th>
-                            <th scope="col">Sub Total Venta</th>
-                            <th scope="col">Impuesto Total Venta</th>
-                            <th scope="col">Total Venta</th>
-                            <th scope="col">Precio</th>
+                            <th scope="col">Numero Compra</th>
+                            <th scope="col">SubTotal</th>
+                            <th scope="col">Impuesto</th>
                             <th scope="col">Total</th>
                         </tr>
                     </thead>

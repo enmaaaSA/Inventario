@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Nueva Venta";
+    ViewData["Title"] = "Registrar Venta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -29,21 +29,22 @@
                     <div class="card-body">
                         <div class="form-row">
                             <div class="form-group col-sm-6">
-                                <input type="text" class="form-control form-control-sm" id="txtDocumentoCliente" placeholder="numero documento">
-                            </div>
+                                <label for="cboDocumento">Tipo de Documento</label>
+                                <select class="form-control form-control-sm"  id="cboDocumento">
+                                     <option>DNI</option>
+                                     <option>RUC</option>
+                                 </select>
+                             </div>
                             <div class="form-group col-sm-6">
-                                <input type="text" class="form-control form-control-sm" id="txtNombreCliente" placeholder="nombre completo">
+                                <label for="txtDocumentoCliente">N° de Documento</label>
+                                <input type="text" class="form-control form-control-sm" id="txtDocumentoCliente" placeholder="numero documento">
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-sm-6">
-                                <label for="cboDocumento">Documento</label>
-                             </div>
-                             <select id="cboDocumento">
-                                 <option>DNI</option>
-                                 <option>RUC</option>
-                                 <option>OTRO</option>
-                             </select>
+                            <div class="form-group col-sm-12">
+                                <label for="txtNombreCliente">Nombre</label>
+                                <input type="text" class="form-control form-control-sm" id="txtNombreCliente" placeholder="nombre completo">
+                            </div>
                         </div>
                     </div>
                 </div>

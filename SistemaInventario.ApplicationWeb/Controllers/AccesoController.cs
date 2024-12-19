@@ -45,7 +45,8 @@ namespace SistemaInventario.ApplicationWeb.Controllers
             {
                 new Claim(ClaimTypes.Name, userFound.Nombre),
                 new Claim(ClaimTypes.NameIdentifier, userFound.IdUsuario.ToString()),
-                new Claim(ClaimTypes.Role, userFound.IdRol.ToString())
+                new Claim(ClaimTypes.Role, userFound.IdRol.ToString()),
+                new Claim("Last", userFound.Apellido)
             };
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             AuthenticationProperties properties = new AuthenticationProperties()

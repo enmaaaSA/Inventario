@@ -37,7 +37,7 @@ namespace SistemaInventario.BLL.Implementaciones
             if (!_utilidadesServicio.CorreoValido(entidad.Correo))
                 throw new InvalidOperationException("El formato del correo electrónico no es válido.");
 
-            Usuario userExitsEmail = await _repositorio.Obtener(u => u.Correo == entidad.Correo && u.NumeroDocumento == entidad.NumeroDocumento && u.Estado == true);
+            Usuario userExitsEmail = await _repositorio.Obtener(u => u.Correo == entidad.Correo && u.Estado == true);
             Usuario userExitsNumber = await _repositorio.Obtener(u => u.NumeroDocumento == entidad.NumeroDocumento && u.Estado == true);
 
             if (userExitsEmail != null)
@@ -158,9 +158,31 @@ namespace SistemaInventario.BLL.Implementaciones
                     throw new TaskCanceledException("El usuario no existe");
                 if (userFound.Clave != _utilidadesServicio.ConvertirSha256(claveActual))
                     throw new TaskCanceledException("La contraseña ingresada como actual no es correcta");
-                userFound.Clave = _utilidadesServicio.ConvertirSha256(claveNueva);
-                bool respuesta = await _repositorio.Editar(userFound);
-                return respuesta;
+
+                string pwNew = _utilidadesServicio.ConvertirSha256(claveNueva);
+
+                IQueryable<Usuario> queryUser = await _repositorio.Consultar(p => p.IdUsuario == idUsuario);
+                Usuario userOriginal = queryUser.First();
+
+                Usuario userNew = new Usuario
+                {
+                    Nombre = userOriginal.Nombre,
+                    Apellido = userOriginal.Apellido,
+                    Documento = userOriginal.Documento,
+                    NumeroDocumento = userOriginal.NumeroDocumento,
+                    Correo = userOriginal.Correo,
+                    IdRol = userOriginal.IdRol,
+                    Clave = pwNew,
+                    Estado = userOriginal.Estado,
+                };
+
+                Usuario userCreate = await _repositorio.Crear(userNew);
+                if (userCreate == null)
+                    throw new TaskCanceledException("No se pudo cambiar la contraseña.");
+
+                userOriginal.Estado = false;
+                bool statusFalse = await _repositorio.Editar(userOriginal);
+                return statusFalse;
             }
             catch (Exception ex)
             {
@@ -231,6 +253,13 @@ namespace SistemaInventario.BLL.Implementaciones
             {
                 throw;
             }
+        }
+
+        public async Task<Usuario> ObtenerUsuarioActivoPorId(int idUsuario)
+        {
+            IQueryable<Usuario> query = await _repositorio.Consultar(u => u.IdUsuario == idUsuario && u.Estado == true);
+            Usuario result = query.Include(r => r.IdRolNavigation).FirstOrDefault();
+            return result;
         }
     }
 }

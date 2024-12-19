@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace SistemaInventario.ApplicationWeb.Utilidades.ViewComponents
@@ -9,13 +10,17 @@ namespace SistemaInventario.ApplicationWeb.Utilidades.ViewComponents
         {
             ClaimsPrincipal claimUser = HttpContext.User;
             string userName = "";
+            string lastName = "";
             if (claimUser.Identity.IsAuthenticated)
             {
                 userName = claimUser.Claims.Where(c => c.Type == ClaimTypes.Name)
                                            .Select(c => c.Value)
                                            .SingleOrDefault();
+                lastName = claimUser.Claims.Where(c => c.Type == "Last")
+                                           .Select(c => c.Value)
+                                           .SingleOrDefault();
             }
-            ViewData["nombreUsuario"] = userName;
+            ViewData["nombreUsuario"] = $"{userName} {lastName}";
             return View();
         }
     }

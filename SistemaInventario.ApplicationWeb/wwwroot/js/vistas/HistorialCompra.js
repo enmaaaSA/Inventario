@@ -56,14 +56,14 @@ $("#btnBuscar").click(function () {
         }
     }
 
-    let numeroCompra = $("#txtNumeroVenta").val()
+    let numeroVenta = $("#txtNumeroVenta").val()
     let fechaInicio = $("#txtFechaInicio").val()
     let fechaFin = $("#txtFechaFin").val()
 
 
     $(".card-body").find("div.row").LoadingOverlay("show");
 
-    fetch(`/Compra/HistorialCompra?numeroCompra=${numeroCompra}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
+    fetch(`/Compra/HistorialCompra?numeroCompra=${numeroVenta}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
         .then(response => {
             $(".card-body").find("div.row").LoadingOverlay("hide");
             return response.ok ? response.json() : Promise.reject(response);
@@ -82,7 +82,7 @@ $("#btnBuscar").click(function () {
                             $("<td>").text(compra.numeroCompra),
                             $("<td>").text(compra.tipoDocumentoCompra),
                             $("<td>").text(compra.documentoProveedor),
-                            $("<td>").text(compra.nombreProveedor),
+                            $("<td>").text(compra.proveedor),
                             $("<td>").text(compra.total),
                             $("<td>").append(
                                 $("<button>").addClass("btn btn-info btn-sm").append(
@@ -108,7 +108,7 @@ $("#tbventa tbody").on("click", ".btn-info", function () {
     $("#txtNumVenta").val(d.numeroCompra)
     $("#txtUsuarioRegistro").val(d.usuario)
     $("#txtTipoDocumento").val(d.tipoDocumentoCompra)
-    $("#txtDocumentoCliente").val(d.documentoProveedor)
+    $("#txtDocumentoCliente").val(d.proveedor)
     $("#txtNombreCliente").val(d.nombreProveedor)
     $("#txtSubTotal").val(d.subTotal)
     $("#txtIGV").val(d.impuestoTotal)
@@ -130,7 +130,7 @@ $("#tbventa tbody").on("click", ".btn-info", function () {
 
     })
 
-    $("#linkImprimir").attr("href", `/Compra/MostrarPDFCompra?numeroCompra=${d.numeroCompra}`)
+    $("#linkImprimir").attr("href", `/Venta/MostrarPDFVenta?numeroVenta=${d.numeroVenta}`)
 
     $("#modalData").modal("show");
 

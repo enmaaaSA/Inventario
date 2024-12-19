@@ -153,6 +153,9 @@ namespace SistemaInventario.ApplicationWeb.Utilidades.AutoMapper
                     destino.NombreProveedor,
                     opt => opt.MapFrom(origen => origen.IdProveedorNavigation.Nombre))
                 .ForMember(destino =>
+                    destino.Proveedor,
+                    opt => opt.MapFrom(origen => origen.IdProveedorNavigation.Nombre))
+                .ForMember(destino =>
                     destino.SubTotal,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.SubTotal.Value, new CultureInfo("es-PE"))))
                 .ForMember(destino =>
@@ -160,7 +163,10 @@ namespace SistemaInventario.ApplicationWeb.Utilidades.AutoMapper
                     opt => opt.MapFrom(origen => Convert.ToString(origen.ImpuestoTotal.Value, new CultureInfo("es-PE"))))
                 .ForMember(destino =>
                     destino.Total,
-                    opt => opt.MapFrom(origen => Convert.ToString(origen.Total.Value, new CultureInfo("es-PE"))));
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.Total.Value, new CultureInfo("es-PE"))))
+                .ForMember(destino =>
+                    destino.Fecha,
+                    opt => opt.MapFrom(origen => origen.Fecha.Value.ToString("dd/MM/yyyy")));
 
             CreateMap<VMCompra, Compra>()
                 .ForMember(destino =>
@@ -222,18 +228,6 @@ namespace SistemaInventario.ApplicationWeb.Utilidades.AutoMapper
             #region DetalleCompra
             CreateMap<DetalleCompra, VMDetalleCompra>()
                 .ForMember(destino =>
-                    destino.CodigoProducto,
-                    opt => opt.MapFrom(origen => origen.IdProductoNavigation.CodigoBarra))
-                .ForMember(destino =>
-                    destino.NombreProducto,
-                    opt => opt.MapFrom(origen => origen.IdProductoNavigation.Nombre))
-                .ForMember(destino =>
-                    destino.MarcaProducto,
-                    opt => opt.MapFrom(origen => origen.IdProductoNavigation.IdMarcaNavigation.Nombre))
-                .ForMember(destino =>
-                    destino.CategoriaProducto,
-                    opt => opt.MapFrom(origen => origen.IdProductoNavigation.IdCategoriaNavigation.Nombre))
-                .ForMember(destino =>
                     destino.PrecioCompra,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.PrecioCompra.Value, new CultureInfo("es-PE"))))
                 .ForMember(destino =>
@@ -241,9 +235,6 @@ namespace SistemaInventario.ApplicationWeb.Utilidades.AutoMapper
                     opt => opt.MapFrom(origen => Convert.ToString(origen.Total.Value, new CultureInfo("es-PE"))));
 
             CreateMap<VMDetalleCompra, DetalleCompra>()
-                .ForMember(destino =>
-                    destino.IdProductoNavigation,
-                    opt => opt.Ignore())
                 .ForMember(destino =>
                     destino.PrecioCompra,
                     opt => opt.MapFrom(origen => Convert.ToDecimal(origen.PrecioCompra, new CultureInfo("es-PE"))))
@@ -363,24 +354,6 @@ namespace SistemaInventario.ApplicationWeb.Utilidades.AutoMapper
                 .ForMember(destino =>
                 destino.SubMenu,
                 opt => opt.MapFrom(origen => origen.InverseIdMenuPadreNavigation));
-            #endregion
-
-            #region Test
-            //CreateMap<Producto, VMTomaInventario>()
-            //.ForMember(destino =>
-            //destino.Stock,
-            //opt => opt.MapFrom(origen => origen.Stock))
-            //    .ForMember(destino =>
-            //     destino.Razon,
-            //       opt => opt.MapFrom(origen => origen.Razon));
-
-            //CreateMap<VMTomaInventario, Producto>()
-            //  .ForMember(destino =>
-            //    destino.Stock,
-            //  opt => opt.MapFrom(origen => origen.Stock))
-            // .ForMember(destino =>
-            //   destino.Razon,
-            // opt => opt.MapFrom(origen => origen.Razon));
             #endregion
 
             #region Toma

@@ -11,9 +11,9 @@
         public string NombreCliente { get; set; }
         public int IdTipoDocumentoVenta { get; set; }
         public string TipoDocumentoVenta { get; set; }
-        public decimal SubTotal { get; set; }
-        public decimal ImpuestoTotal { get; set; }
-        public decimal Total { get; set; }
+        public string SubTotal { get; set; }
+        public string ImpuestoTotal { get; set; }
+        public string Total { get; set; }
         public string Fecha { get; set; }
         public virtual ICollection<VMDetalleVenta> DetalleVenta { get; set; }
     }

@@ -29,12 +29,12 @@ namespace SistemaInventario.BLL.Implementaciones
         {
             Proveedor supplierExists = await _repositorio.Obtener(s => s.NumeroDocumento == entidad.NumeroDocumento && s.Estado == true);
             if (supplierExists != null)
-                throw new TaskCanceledException("El proveedor ya existe CREATE");
+                throw new TaskCanceledException("El proveedor ya existe.");
             try
             {
                 Proveedor supplierCreated = await _repositorio.Crear(entidad);
                 if (supplierCreated.IdProveedor == 0)
-                    throw new TaskCanceledException("No se puede crear el proveedor CREATE");
+                    throw new TaskCanceledException("No se puede crear el proveedor.");
                 IQueryable<Proveedor> query = await _repositorio.Consultar(s => s.IdProveedor == supplierCreated.IdProveedor);
                 supplierCreated = query.Include(u => u.IdUsuarioNavigation).First();
                 return supplierCreated;
@@ -47,11 +47,11 @@ namespace SistemaInventario.BLL.Implementaciones
 
         public async Task<Proveedor> Editar(Proveedor entidad)
         {
-            Proveedor supplierExists = await _repositorio.Obtener(s => s.NumeroDocumento == entidad.NumeroDocumento && 
-                                                                       s.IdProveedor != entidad.IdProveedor && 
+            Proveedor supplierExists = await _repositorio.Obtener(s => s.IdProveedor != entidad.IdProveedor &&
+                                                                       s.NumeroDocumento == entidad.NumeroDocumento &&
                                                                        s.Estado == true);
             if (supplierExists != null)
-                throw new TaskCanceledException("El proveedor ya existe EDIT");
+                throw new TaskCanceledException("El proveedor ya existe.");
             try
             {
                 IQueryable<Proveedor> querySupplier = await _repositorio.Consultar(s => s.IdProveedor == entidad.IdProveedor);
@@ -68,7 +68,7 @@ namespace SistemaInventario.BLL.Implementaciones
                 };
                 Proveedor supplierCreate = await _repositorio.Crear(supplierNew);
                 if (supplierCreate == null)
-                    throw new TaskCanceledException("No se puede actualizar el proveedor. EDIT");
+                    throw new TaskCanceledException("No se puede actualizar el proveedor.");
                 supplierOriginal.Estado = false;
                 bool statusFalse = await _repositorio.Editar(supplierOriginal);
                 Proveedor supplierCreated = querySupplier.Include(u => u.IdUsuarioNavigation).First();
